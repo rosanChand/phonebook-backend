@@ -1,9 +1,10 @@
 const express = require('express')
-
-const app = express()
 const cors = require('cors')
+const app = express()
+
 app.use(express.json())
 app.use(cors())
+app.use(express.static('dist'))
 
 
 const morgan = require('morgan')
@@ -41,7 +42,7 @@ let phonebook = [
     }
 ]
 
-app.get('/api/persons',(request,response)=>{
+app.get('/',(request,response)=>{
   response.send('<h1>connected:/</h1>')
 })
 app.get('/api/persons',(request,response)=>{
