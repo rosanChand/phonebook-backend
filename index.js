@@ -41,7 +41,9 @@ let phonebook = [
     }
 ]
 
-// app.get('/',(reques))
+app.get('/api/persons',(request,response)=>{
+  response.send('<h1>connected:/</h1>')
+})
 app.get('/api/persons',(request,response)=>{
     response.json(phonebook)
 })
