@@ -1,6 +1,9 @@
+
+require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const app = express()
+const Person = require('./models/Person')
 
 app.use(express.json())
 app.use(cors())
@@ -46,7 +49,9 @@ app.get('/',(request,response)=>{
   response.send('<h1>connected:/</h1>')
 })
 app.get('/api/persons',(request,response)=>{
-    response.json(phonebook)
+  Person.find({}).then(people => {
+    response.json(people)
+  })
 })
 app.get('/api/persons/:id',(request,response)=>{
   const id = request.params.id
@@ -123,18 +128,27 @@ app.post('/api/persons',(request,response)=>{
     return response.status(400).json({
       error: 'number missing'
     })
-  } else if (namecheck(body.name)){
-    return response.status(400).json({
-      error: 'name already exists'
+  }
+  // } else if (namecheck(body.name)){
+  //   return response.status(400).json({
+  //     error: 'name already exists'
+  //   })
+  // }
+  // const personInfo = {
+  //   id: generateId(),
+  //   name: body.name,
+  //   number: body.number
+  // }
+  // phonebook = phonebook.concat(personInfo)
+  // response.json(personInfo)
+
+    const personInfo = new Person({
+      name: body.name,
+      number: body.number,
     })
-  }
-  const personInfo = {
-    id: generateId(),
-    name: body.name,
-    number: body.number
-  }
-  phonebook = phonebook.concat(personInfo)
-  response.json(personInfo)
+    personInfo.save().then(savedPerson =>{
+      response.json(savedPerson)
+    })
 
 })
 
