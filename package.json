@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch index.js",
     "build:ui": "rm -rf dist && cd ../../part2/phonebook && npm run build && cp -r dist ../../part3/phonebook_backend",
-    "deploy:full": "npm run build:ui && git add . && git commit -m phonebookuibuild && git push"
+    "deploy:full": "npm run build:ui && git add . && git commit -m phonebookuibuild && git push",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +19,11 @@
     "express": "^4.21.2",
     "mongoose": "^8.11.0",
     "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0",
+    "@stylistic/eslint-plugin-js": "^4.2.0",
+    "eslint": "^9.21.0",
+    "globals": "^16.0.0"
   }
 }
